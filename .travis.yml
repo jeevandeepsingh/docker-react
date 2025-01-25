@@ -1,0 +1,11 @@
+sudo: required # this is to give root user access
+services:
+  - docker # this is telling to install docker
+
+before_install:
+  # -t for tag so that we can build image with tag and we can refer tag
+  # we can put any name instead of jeevandeepsingh/docker-react for tag because we will run this inside a new process for travis
+  - docker build -t jeevandeepsingh/docker-react -f Dockerfile.dev .
+
+script:
+  - docker run -e CI=true jeevandeepsingh/docker-react npm run test
